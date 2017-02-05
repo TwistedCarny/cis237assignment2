@@ -47,6 +47,7 @@ namespace cis237assignment2
 
             //Do work needed to use mazeTraversal recursive call and solve the maze.
             MazeTraversal(maze, xStart, yStart, xStart, yStart);
+            mazeSolved = false;
         }
 
 
@@ -58,10 +59,11 @@ namespace cis237assignment2
         private void MazeTraversal(char[,] maze, int currentXPos, int currentYPos, int newXPos, int newYPos)
         {
 
-            if (newXPos > -1 && newYPos > -1 & !mazeSolved)
+            try
             {
-                if (newXPos < maze.GetUpperBound(0) + 1)
+                if (newXPos > -1 && newYPos > -1 & !mazeSolved)
                 {
+
                     if (maze[newYPos, newXPos] == '.')
                     {
                         currentXPos = newXPos;
@@ -73,15 +75,14 @@ namespace cis237assignment2
                         MazeTraversal(maze, currentXPos, currentYPos, currentXPos, currentYPos + 1); // Move up
                         MazeTraversal(maze, currentXPos, currentYPos, currentXPos, currentYPos - 1); // Move down
                     }
-                    
-                }
-                else
-                {
-                    Console.WriteLine("Solved maze!");
-                    mazeSolved = true;
-                }
-            }
 
+                }
+            }         
+            catch(IndexOutOfRangeException ex)
+            {
+                Console.WriteLine("Maze solved!");
+                mazeSolved = true;
+            }
         }
 
         private void PrintMaze(char[,] maze)
