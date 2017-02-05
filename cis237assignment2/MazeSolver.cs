@@ -20,6 +20,7 @@ namespace cis237assignment2
         char[,] maze;
         int xStart;
         int yStart;
+        bool mazeSolved;
 
         /// <summary>
         /// Default Constuctor to setup a new maze solver.
@@ -42,7 +43,10 @@ namespace cis237assignment2
             this.xStart = xStart;
             this.yStart = yStart;
 
+            PrintMaze(maze);
+
             //Do work needed to use mazeTraversal recursive call and solve the maze.
+            MazeTraversal(maze, xStart, yStart, xStart, yStart);
         }
 
 
@@ -51,9 +55,45 @@ namespace cis237assignment2
         /// Feel free to change the return type if you like, or pass in parameters that you might need.
         /// This is only a very small starting point.
         /// </summary>
-        private void mazeTraversal()
+        private void MazeTraversal(char[,] maze, int currentXPos, int currentYPos, int newXPos, int newYPos)
         {
-            //Implement maze traversal recursive call
+
+            if (newXPos > -1 && newYPos > -1 & !mazeSolved)
+            {
+                if (newXPos != maze.GetUpperBound(0))
+                {
+                    if (maze[newYPos, newXPos] == '.')
+                    {
+                        currentXPos = newXPos;
+                        currentYPos = newYPos;
+                        maze[currentYPos, currentXPos] = 'x';
+                        PrintMaze(maze);
+                        MazeTraversal(maze, currentXPos, currentYPos, currentXPos + 1, currentYPos); // Move right
+                        MazeTraversal(maze, currentXPos, currentYPos, currentXPos - 1, currentYPos); // Move left
+                        MazeTraversal(maze, currentXPos, currentYPos, currentXPos, currentYPos + 1); // Move up
+                        MazeTraversal(maze, currentXPos, currentYPos, currentXPos, currentYPos - 1); // Move down
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Solved maze!");
+                    mazeSolved = true;
+                }
+            }
+
+        }
+
+        private void PrintMaze(char[,] maze)
+        {
+            Console.WriteLine();
+            for (int i = 0; i < maze.GetLength(0); i++)
+            {
+                for (int j = 0; j < maze.GetLength(1); j++)
+                {
+                    Console.Write(maze[i, j]);
+                }
+                Console.WriteLine();
+            }
         }
     }
 }
