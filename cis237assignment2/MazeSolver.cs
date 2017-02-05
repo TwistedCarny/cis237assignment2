@@ -60,19 +60,20 @@ namespace cis237assignment2
 
             if (newXPos > -1 && newYPos > -1 & !mazeSolved)
             {
-                if (newXPos != maze.GetUpperBound(0))
+                if (newXPos < maze.GetUpperBound(0) + 1)
                 {
                     if (maze[newYPos, newXPos] == '.')
                     {
                         currentXPos = newXPos;
                         currentYPos = newYPos;
-                        maze[currentYPos, currentXPos] = 'x';
+                        maze[currentYPos, currentXPos] = 'X';
                         PrintMaze(maze);
                         MazeTraversal(maze, currentXPos, currentYPos, currentXPos + 1, currentYPos); // Move right
                         MazeTraversal(maze, currentXPos, currentYPos, currentXPos - 1, currentYPos); // Move left
                         MazeTraversal(maze, currentXPos, currentYPos, currentXPos, currentYPos + 1); // Move up
                         MazeTraversal(maze, currentXPos, currentYPos, currentXPos, currentYPos - 1); // Move down
                     }
+                    
                 }
                 else
                 {
