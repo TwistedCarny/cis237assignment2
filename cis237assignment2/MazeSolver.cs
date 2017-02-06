@@ -20,13 +20,13 @@ namespace cis237assignment2
         char[,] maze;
         int xStart;
         int yStart;
-        bool mazeSolved;
+        bool solved;
 
         /// <summary>
         /// Default Constuctor to setup a new maze solver.
         /// </summary>
         public MazeSolver()
-        {}
+        { }
 
 
         /// <summary>
@@ -43,11 +43,15 @@ namespace cis237assignment2
             this.xStart = xStart;
             this.yStart = yStart;
 
-            PrintMaze(maze);
+            PrintMaze(maze); // Print the blank maze
+
+            solved = false;
 
             //Do work needed to use mazeTraversal recursive call and solve the maze.
-            MazeTraversal(maze, xStart, yStart, xStart, yStart);
-            mazeSolved = false;
+            MazeTraversal(maze, xStart, yStart);
+
+            Console.WriteLine("The maze has been solved!");
+
         }
 
 
@@ -56,41 +60,36 @@ namespace cis237assignment2
         /// Feel free to change the return type if you like, or pass in parameters that you might need.
         /// This is only a very small starting point.
         /// </summary>
-        private void MazeTraversal(char[,] maze, int currentXPos, int currentYPos, int newXPos, int newYPos)
+        private void MazeTraversal(char[,] maze, int xPos, int yPos)
         {
-
-            try
+            if (xPos > -1 && yPos > -1 && !solved)
             {
-                if (newXPos > -1 && newYPos > -1 && !mazeSolved)
+                if(xPos == maze.GetLength(1) | yPos == maze.GetLength(0)) // Check to see if we're at the end of the maze
                 {
+                    solved = true;
+                    return; // Return because we don't need to try to move any more
+                }
 
-                    if (maze[newYPos, newXPos] == '.')
+                if (maze[yPos, xPos] == '.' && !solved)
+                {
+                    maze[yPos, xPos] = 'X'; // Mark spot on sucessful path
+                    PrintMaze(maze); // Print the maze after doing so
+
+                    MazeTraversal(maze, xPos + 1, yPos); // Attempt to move right
+                    MazeTraversal(maze, xPos - 1, yPos); // Attempt to move left
+                    MazeTraversal(maze, xPos, yPos + 1); // Attempt to move up
+                    MazeTraversal(maze, xPos, yPos - 1); // Attempt to move down
+
+                    if (!solved) // Check to make sure the maze hasn't been solved when backtracking and place down "O" when it does
                     {
-                        currentXPos = newXPos;
-                        currentYPos = newYPos;
-                        maze[currentYPos, currentXPos] = 'X';
+                        maze[yPos, xPos] = 'O';
                         PrintMaze(maze);
-                        MazeTraversal(maze, currentXPos, currentYPos, currentXPos + 1, currentYPos); // Move right
-                        MazeTraversal(maze, currentXPos, currentYPos, currentXPos - 1, currentYPos); // Move left
-                        MazeTraversal(maze, currentXPos, currentYPos, currentXPos, currentYPos + 1); // Move up
-                        MazeTraversal(maze, currentXPos, currentYPos, currentXPos, currentYPos - 1); // Move down
-
-                        if (!mazeSolved)
-                        {
-                            maze[currentYPos, currentXPos] = 'O';
-                            PrintMaze(maze);
-                        }
-                        
                     }
                 }
-            }         
-            catch(IndexOutOfRangeException ex)
-            {
-                Console.WriteLine("Maze solved!");
-                mazeSolved = true;
             }
         }
 
+        // Prints maze to console
         private void PrintMaze(char[,] maze)
         {
             Console.WriteLine();
