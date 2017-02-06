@@ -61,7 +61,7 @@ namespace cis237assignment2
 
             try
             {
-                if (newXPos > -1 && newYPos > -1 & !mazeSolved)
+                if (newXPos > -1 && newYPos > -1 && !mazeSolved)
                 {
 
                     if (maze[newYPos, newXPos] == '.')
@@ -74,8 +74,14 @@ namespace cis237assignment2
                         MazeTraversal(maze, currentXPos, currentYPos, currentXPos - 1, currentYPos); // Move left
                         MazeTraversal(maze, currentXPos, currentYPos, currentXPos, currentYPos + 1); // Move up
                         MazeTraversal(maze, currentXPos, currentYPos, currentXPos, currentYPos - 1); // Move down
-                    }
 
+                        if (!mazeSolved)
+                        {
+                            maze[currentYPos, currentXPos] = 'O';
+                            PrintMaze(maze);
+                        }
+                        
+                    }
                 }
             }         
             catch(IndexOutOfRangeException ex)
