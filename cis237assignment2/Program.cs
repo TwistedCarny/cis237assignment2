@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Westin Curtis
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,6 +23,8 @@ namespace cis237assignment2
             /// </summary>
             const int X_START = 1;
             const int Y_START = 1;
+
+            Console.BufferHeight = 5000;
 
             ///<summary>
             /// The first maze that needs to be solved.

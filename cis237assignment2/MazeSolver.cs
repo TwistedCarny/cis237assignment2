@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Westin Curtis
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -64,7 +66,7 @@ namespace cis237assignment2
         {
             if (xPos > -1 && yPos > -1 && !solved)
             {
-                if(xPos == maze.GetLength(1) | yPos == maze.GetLength(0)) // Check to see if we're at the end of the maze
+                if(xPos == maze.GetLength(1) || yPos == maze.GetLength(0)) // Check to see if we're at the end of the maze
                 {
                     solved = true;
                     return; // Return because we don't need to try to move any more

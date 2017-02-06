@@ -1,7 +1,8 @@
-# Assignment 2 - Recursion to solve a maze
+﻿# Assignment 2 - Recursion to solve a maze
 ## Due 02-08-2017
 
 ## Author
+Westin Curtis
 
 ## Description
 
@@ -41,5 +42,7 @@ Don't forget that you must have a base case for your recursive method or you wil
 | **Total**           | **100**|
 
 ## Outside Resources Used
+http://stackoverflow.com/questions/18368611/how-do-i-transpose-a-multi-dimensional-array
 
 ## Known Problems, Issues, And/Or Errors in the Program
+None that I know of.
